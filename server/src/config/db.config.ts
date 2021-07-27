@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const config = {
+export const dbConfig = {
 	HOST: process.env.DB_HOST || 'localhost',
 	USER: process.env.DB_USER || 'root',
 	DB: process.env.DB || 'typescript_test',
