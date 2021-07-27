@@ -39,8 +39,8 @@ Users_test.init(
 		},
 	},
 	{
-		modelName: 'user',
-		tableName: 'user',
+		modelName: 'user_test',
+		tableName: 'user_test',
 		sequelize,
 		freezeTableName: true,
 		timestamps: true,
