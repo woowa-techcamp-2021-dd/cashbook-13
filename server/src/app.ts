@@ -1,6 +1,10 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { sequelize } from './models';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -16,6 +20,15 @@ app.get('/', (_, res) => {
 	res.send('<h1>우아한 가계부 13팀 서버입니다.</h1>');
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
 	console.log(`server on ${PORT}`);
+
+	await sequelize
+		.authenticate()
+		.then(async () => {
+			console.log('connection success');
+		})
+		.catch((e) => {
+			console.log('not connection');
+		});
 });
