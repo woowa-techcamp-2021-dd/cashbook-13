@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { sequelize } from './models';
+import apiRouter from './routes';
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 app.use(cors());
+
+app.use('/api', apiRouter);
 
 app.get('/', (_, res) => {
 	res.send('<h1>우아한 가계부 13팀 서버입니다.</h1>');
