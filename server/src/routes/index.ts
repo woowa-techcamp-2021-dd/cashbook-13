@@ -4,6 +4,7 @@ import recordRouter from './record';
 
 const apiRouter = Router();
 
+apiRouter.use('/auth', authRouter);
 apiRouter.use('/record', recordRouter);
 // apiRouter.use('/auth', authRouter);
 
