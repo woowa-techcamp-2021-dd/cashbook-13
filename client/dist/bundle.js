@@ -1,0 +1,1 @@
+(()=>{"use strict";document.getElementById("test")?.addEventListener("click",(async()=>{await fetch("http://localhost:4000/api/record?userID=1",{credentials:"include"})}))})();
