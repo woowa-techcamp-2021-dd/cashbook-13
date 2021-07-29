@@ -1,16 +1,16 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import { sequelize } from '.';
 
-interface UserAttributes {
+export interface UserAttributes {
 	name: string;
-	email: string;
+	githubID: string;
 	createdAt?: Date;
 	updatedAt?: Date;
 }
 
 export default class User extends Model<UserAttributes> {
 	public readonly id!: number;
-	public email!: string;
+	public githubID!: string;
 	public name!: string;
 
 	public createdAt!: Date;
@@ -19,7 +19,7 @@ export default class User extends Model<UserAttributes> {
 
 User.init(
 	{
-		email: {
+		githubID: {
 			type: DataTypes.STRING(45),
 			allowNull: false,
 		},
