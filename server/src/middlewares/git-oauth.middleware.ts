@@ -1,8 +1,5 @@
 import passport from 'passport';
 import { Strategy } from 'passport-github';
-// import User, { UserAttributes } from '../models/user.model';
-// import github = Strategy;
-// import * as oauth2 from 'passport-oauth2';
 
 const githubConfig = {
 	clientID: process.env.GITHUB_CLIENT_ID || '',
@@ -10,35 +7,21 @@ const githubConfig = {
 	callbackURL: process.env.GITHUB_CLIENT_CALLBACK_URL || '',
 };
 
-// const githubLoginVerify = async (
-// 	accessToken: string,
-// 	refreshToken: string,
-// 	profile: github.Profile,
-// 	callback: oauth2.VerifyCallback
-// ) => {
-// 	try {
-// 		const {
-// 			_json: { id, login, node_id } :,
-// 		} = profile;
-// 		const userInfo = { id, login, node_id };
-// 		return callback(null, userInfo);
-// 	} catch (error) {
-// 		return callback(null, false, { msg: '에뤄에뤄' });
-// 	}
-// };
+interface User {
+	login: string;
+	id: number;
+	node_id: string;
+}
 
-passport.serializeUser((user, cb) => {
-	console.log('serialize : ', user);
-	cb(null, user);
-});
+const githubPassport = () => {
+	passport.serializeUser((user, done) => {
+		done(null, user);
+	});
 
-passport.deserializeUser((user: Express.User, cb) => {
-	console.log('deserialize : ', user);
-	cb(null, user);
-});
+	passport.deserializeUser((user: User, cb) => {
+		cb(null, user);
+	});
 
-//declare modeul을 해주라
-const gitPassport = () => {
 	passport.use(
 		'github',
 		new Strategy(
@@ -46,7 +29,7 @@ const gitPassport = () => {
 			(accessToken, refreshToken, profile: any, callback) => {
 				try {
 					const { _json } = profile;
-					const { login, id, node_id } = _json;
+					const { login, id, node_id }: User = _json;
 					return callback(null, { login, id, node_id });
 				} catch (error) {
 					return callback(null, {}, { msg: '에뤄에뤄' });
@@ -56,20 +39,4 @@ const gitPassport = () => {
 	);
 };
 
-export default gitPassport;
-
-// User.findOrCreate({
-// 	where: { githubID: profile.id },
-// 	defaults: { name: profile.name?.givenName || '', githubID: profile.id },
-// })
-// 	.then((row) => {
-// 		return callback(null, row[0]);
-// 	})
-// 	.catch((err) => {
-// 		return callback(err, false);
-// 	});
-// // type VerifyCallback = (err?: Error | null, user?: Express.User, info?: object) => void;
-
-// // db처리 findOrCreate
-// // let user = await User.
-// // return callback(null, profile);
+export default githubPassport;
