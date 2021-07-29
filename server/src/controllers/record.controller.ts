@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 
 export const getRecord = async (req: Request, res: Response) => {
 	console.log('\n ####### getRecord #######');
-	console.log('test : ', req.cookies);
 	console.log('req.session : ', req.session);
 	console.log('req.passport.user : ', req.user);
 

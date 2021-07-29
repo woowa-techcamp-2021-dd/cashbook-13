@@ -15,12 +15,10 @@ interface User {
 
 const githubPassport = () => {
 	passport.serializeUser((user, done) => {
-		console.log(user);
 		done(null, user);
 	});
 
 	passport.deserializeUser((user: any, cb) => {
-		console.log('여기 : ', user);
 		cb(null, user);
 	});
 

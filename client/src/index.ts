@@ -1,7 +1,5 @@
 import './style.scss';
 
-console.log('데모입니다');
-
 const $test = document.getElementById('test');
 
 $test?.addEventListener('click', async () => {
