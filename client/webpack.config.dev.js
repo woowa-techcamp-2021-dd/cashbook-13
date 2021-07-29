@@ -12,13 +12,13 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 	},
 	resolve: {
-		extensions: ['.ts', '.js', '.json'],
+		extensions: ['.js', '.json'],
 	},
 	module: {
 		rules: [
 			{
-				test: /\.ts?$/,
-				use: 'ts-loader',
+				test: /\.js?$/,
+				use: 'babel-loader',
 				exclude: /node_modules/,
 			},
 			{
