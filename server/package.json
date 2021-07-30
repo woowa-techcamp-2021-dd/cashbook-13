@@ -7,7 +7,8 @@
 		"dev": "nodemon --watch '*ts' --exec 'ts-node' ./src/app.ts",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc",
-		"kill": "pm2 kill"
+		"kill": "pm2 kill",
+		"create_table": "ts-node ./src/database/create-tables.ts"
 	},
 	"keywords": [],
 	"author": "",
