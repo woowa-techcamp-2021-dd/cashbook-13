@@ -34,7 +34,7 @@ Payment.init(
 	},
 	{
 		modelName: 'payment',
-		tableName: 'payments',
+		tableName: 'payment',
 		sequelize,
 		freezeTableName: true,
 		timestamps: true,

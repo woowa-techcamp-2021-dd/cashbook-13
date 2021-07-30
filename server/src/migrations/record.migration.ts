@@ -1,4 +1,4 @@
-import Record from '../models/record.model';
+import Record, { IO } from '../models/record.model';
 
 export const createRecord = (
 	user_id: number,
@@ -6,7 +6,8 @@ export const createRecord = (
 	amount: number,
 	category_id: number,
 	payment_id: number,
-	date: Date
+	date: Date,
+	IO: IO
 ) =>
 	new Promise((resolve, reject) => {
 		Record.create({
@@ -16,6 +17,7 @@ export const createRecord = (
 			category_id,
 			payment_id,
 			date,
+			'I/O': IO,
 		});
 	});
 
