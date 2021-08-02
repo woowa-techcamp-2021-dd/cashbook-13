@@ -40,7 +40,7 @@ UserPayment.init(
 	},
 	{
 		modelName: 'user_payment',
-		tableName: 'user_payments',
+		tableName: 'user_payment',
 		sequelize,
 		freezeTableName: true,
 		timestamps: true,

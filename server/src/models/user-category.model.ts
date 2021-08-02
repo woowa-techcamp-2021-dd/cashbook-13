@@ -40,7 +40,7 @@ UserCategory.init(
 	},
 	{
 		modelName: 'user_category',
-		tableName: 'user_categories',
+		tableName: 'user_category',
 		sequelize,
 		freezeTableName: true,
 		timestamps: true,

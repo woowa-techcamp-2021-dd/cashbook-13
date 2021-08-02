@@ -18,7 +18,7 @@ const githubPassport = () => {
 		done(null, user);
 	});
 
-	passport.deserializeUser((user: any, cb) => {
+	passport.deserializeUser((user: User, cb) => {
 		cb(null, user);
 	});
 
