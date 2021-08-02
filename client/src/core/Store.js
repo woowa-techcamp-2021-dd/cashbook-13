@@ -1,11 +1,17 @@
 const globalState = {};
 
-export const initStoreState = ({ key, defaultValue }) => {
+export const initStoreState = ({ key, defaultValue, initialize }) => {
 	if (key in globalState) throw Error('이미 존재하는 store key입니다.');
 	globalState[key] = {
 		_state: defaultValue,
 		_observers: new Set(),
 	};
+	if (initialize) {
+		async function init() {
+			useSetStoreState(key)(await initialize());
+		}
+		init();
+	}
 	return key;
 };
 
@@ -38,5 +44,6 @@ export const useSetStoreState = (key) => (newState) => {
 	_notify(key);
 };
 
-const _notify = (key) =>
+const _notify = (key) => {
 	globalState[key]._observers.forEach((observer) => observer());
+};
