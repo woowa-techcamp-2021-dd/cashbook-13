@@ -1,4 +1,5 @@
-'use strict';
+// 우아한 js https://github.com/woowa-techcamp-2021/woowahan-jsx/blob/main/src/jsx.js
+
 exports.__esModule = true;
 var DIRTY_PREFIX = 'dirtyindex:'; // tag names are always all lowercase
 var DIRTY_REGEX = /dirtyindex:(\d+):/;
