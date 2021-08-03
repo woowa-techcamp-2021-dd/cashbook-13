@@ -10,9 +10,13 @@ module.exports = {
 	output: {
 		filename: 'bundle.js',
 		path: path.resolve(__dirname, 'dist'),
+		clean: true,
 	},
 	resolve: {
 		extensions: ['.js', '.json'],
+		alias: {
+			'@': path.resolve(__dirname, 'src'),
+		},
 	},
 	module: {
 		rules: [
@@ -23,7 +27,19 @@ module.exports = {
 			},
 			{
 				test: /\.s[ac]ss$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+				use: [
+					MiniCssExtractPlugin.loader,
+					'css-loader',
+					{
+						loader: 'sass-loader',
+						options: {
+							additionalData: `@import "${path.resolve(
+								__dirname,
+								'src/config/globalStyle.scss'
+							)}";`,
+						},
+					},
+				],
 				exclude: /node_modules/,
 			},
 			{
@@ -45,7 +61,7 @@ module.exports = {
 			filename: 'style.css',
 		}),
 		new HtmlWebpackPlugin({
-			template: './src/index.html',
+			template: './src/public/index.html',
 		}),
 		new webpack.EnvironmentPlugin([]),
 	],
