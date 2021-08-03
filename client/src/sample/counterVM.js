@@ -1,45 +1,53 @@
-import { combineState } from '../core/vm';
+import { initVMState } from '../core/vm';
 import {
 	count,
 	countName,
 	list,
 	test,
 	modelOne,
-	modelTow,
+	modelTwo,
 	modelThree,
 } from './counterStore';
 
-export const oneTow = combineState({
+export const oneTwo = initVMState({
 	key: 'oneTwo',
-	targets: [modelOne, modelTow],
+	targets: [modelOne, modelTwo],
 });
 
-export const twoThree = combineState({
+export const twoThree = initVMState({
 	key: 'towThree',
-	targets: [modelTow, modelThree],
+	targets: [modelTwo, modelThree],
 });
 
-export const counterState = combineState({
+export const counterState = initVMState({
 	key: 'counter',
 	targets: [count, countName],
 });
 
-export const appState = combineState({
+export const appState = initVMState({
 	key: 'app',
 	targets: [],
 });
 
-export const testState = combineState({
+export const testState = initVMState({
 	key: 'test',
 	targets: [test, count],
 });
 
-export const listState = combineState({
+export const listState = initVMState({
 	key: 'list',
-	targets: [list],
+	targets: [
+		{
+			target: list,
+			custom: (list) => {
+				return list.slice(0, 10);
+			},
+		},
+		test,
+	],
 });
 
-export const one = combineState({
+export const one = initVMState({
 	key: 'one',
 	targets: [],
 });
