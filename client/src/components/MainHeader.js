@@ -1,26 +1,35 @@
 import html from '../core/jsx';
+import { useState } from '../core/vm';
 import { createElement } from '../core/createElement';
-import { appState } from '../sample/counterVM';
+import { dateNowState } from '../vm/dateVM';
 import ImageButton from './ImageButton';
+import calculateMonth from '../utils/calculateMonth';
 
 export default function MainHeader() {
-	const key = appState;
-
+	const key = dateNowState;
 	const render = () => {
+		const [state, setState] = useState(key);
+		const { year, month } = state;
 		return html`<header>
 			<div class="header-title">우아한 가계부</div>
 			<span class="header-row">
 				${createElement(ImageButton, {
 					class: 'arrow-left',
 					name: 'arrow-left',
+					eventHandler: () => {
+						setState(calculateMonth(year, month, false));
+					},
 				})}
 				<span class="header-date">
-					<span class="header-month">7월</span>
-					<span class="header-year">2021</span>
+					<span class="header-month">${month}월</span>
+					<span class="header-year">${year}</span>
 				</span>
 				${createElement(ImageButton, {
 					class: 'arrow_right',
 					name: 'arrow-right',
+					eventHandler: () => {
+						setState(calculateMonth(year, month, true));
+					},
 				})}
 			</span>
 			<span class="header-tab">
