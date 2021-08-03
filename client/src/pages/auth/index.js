@@ -4,6 +4,8 @@ import './style.scss';
 import { useState } from '@/core/vm';
 import { authVMState } from '@/vm/authVM';
 
+import { requestSignUp } from '../../utils/request';
+
 export default function Auth() {
 	const key = authVMState;
 
@@ -54,7 +56,15 @@ const renderAuth = (auth, setState) => {
 						placeholder="영문, 숫자 조합 6~15자"
 					/>
 					<div class="box-id-error">error</div>
-					<button class="btn large">회원가입 하기</button>
+					<button
+						class="btn large"
+						onClick=${(e) => {
+							e.preventDefault();
+							requestSignUp('name123');
+						}}
+					>
+						회원가입 하기
+					</button>
 				</form>
 			</div>`;
 		default:
