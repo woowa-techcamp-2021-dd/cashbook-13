@@ -3,6 +3,7 @@ import { createElement } from '../../core/createElement';
 import { appState } from '../../sample/counterVM';
 import InputItem from '../InputItem';
 import ImageButton from '../ImageButton';
+import saveRecord from '../../utils/saveRecord';
 import './style.scss';
 
 export default function InputBar() {
@@ -43,6 +44,7 @@ export default function InputBar() {
 			${createElement(ImageButton, {
 				class: 'inputbar-save',
 				name: 'save-button-large-default',
+				eventHandler: saveRecord,
 			})}
 		</div>`;
 	};
