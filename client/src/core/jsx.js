@@ -1,6 +1,7 @@
 // 우아한 js https://github.com/woowa-techcamp-2021/woowahan-jsx/blob/main/src/jsx.js
 
-exports.__esModule = true;
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 var DIRTY_PREFIX = 'dirtyindex:'; // tag names are always all lowercase
 var DIRTY_REGEX = /dirtyindex:(\d+):/;
 var DIRTY_REGEX_G = /dirtyindex:(\d+):/g;
@@ -41,7 +42,7 @@ var html = function (strings) {
 		if (typeof value === 'function') {
 			element.addEventListener(name.replace('on', '').toLowerCase(), value);
 			element.removeAttribute(name);
-		} else if (typeof value === 'string') {
+		} else if (['string', 'number'].includes(typeof value)) {
 			var attribute = element.getAttribute(name);
 			var replaced_attr =
 				attribute === null || attribute === void 0
@@ -51,10 +52,17 @@ var html = function (strings) {
 				name,
 				replaced_attr !== null && replaced_attr !== void 0 ? replaced_attr : ''
 			);
+		} else if (typeof value === 'boolean') {
+			if (value === true) {
+				element.setAttribute(name, '');
+			} else {
+				element.removeAttribute(name);
+			}
 		}
 	}
 	function buildDocumentFragmentWith(str) {
 		var df = document.createDocumentFragment();
+		if (!str) return df;
 		df.appendChild(document.createTextNode(str));
 		return df;
 	}
@@ -130,4 +138,4 @@ var html = function (strings) {
 		? _c
 		: template;
 };
-exports['default'] = html;
+exports.default = html;
