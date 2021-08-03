@@ -2,20 +2,23 @@ import { subscribeStore, useSetStoreState, useStoreValue } from './store';
 
 const globalVM = {};
 
-export const combineState = ({ key, targets }) => {
+export const initVMState = ({ key, targets }) => {
 	if (key in globalVM) throw Error('이미 존재하는 vm 키입니다');
+	const targetNames = _getTargetName(targets);
 	globalVM[key] = {
 		_target: targets,
 		_state: _combineState(targets),
-		_setState: _setState(targets),
+		_setState: _setState(targetNames),
 		_observers: new Set(),
 	};
-	targets.forEach((key2) => {
-		subscribeStore(key2, () => {
-			_updateState(key, targets);
+
+	targetNames.forEach((target) => {
+		subscribeStore(target, () => {
+			_updateState(key, target);
 			_notify(key);
 		});
 	});
+
 	return key;
 };
 
@@ -44,13 +47,20 @@ export const useSetState = (key) => {
 
 const _combineState = (targets) =>
 	targets.reduce((acc, target) => {
-		acc[target] = useStoreValue(target);
+		if (typeof target === 'object') {
+			const state = useStoreValue(target.target);
+			acc[target.target] = target.custom(state);
+		}
+
+		if (typeof target === 'string') acc[target] = useStoreValue(target);
+
 		return acc;
 	}, {});
 
-const _updateState = (key, targets) => {
-	globalVM[key]._state = _combineState(targets);
+const _updateState = (key, target) => {
+	globalVM[key]._state[target] = useStoreValue(target);
 };
+
 const _setState = (targets) => (newStates) => {
 	for (const [key, newValue] of Object.entries(newStates)) {
 		if (!targets.includes(key)) throw Error('변경할 수 없는 타겟입니다.');
@@ -61,3 +71,9 @@ const _setState = (targets) => (newStates) => {
 const _notify = (key) => {
 	globalVM[key]._observers.forEach((observer) => observer());
 };
+
+const _getTargetName = (targets) =>
+	targets.map((target) => {
+		if (typeof target === 'object') return target.target;
+		return target;
+	});
