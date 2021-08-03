@@ -1,31 +1,82 @@
-import { createElement } from '../../core/createElement';
 import html from '../../core/jsx';
+import { useState } from '../../core/vm';
+import { inputBarState } from '../../vm/inputBarVM';
+import { createElement } from '../../core/createElement';
 import Imagebutton from '../ImageButton';
 import './style.scss';
+import Dropdown from '../Dropdown';
+import getValue from '../../utils/getValue';
+import setFocus from '../../utils/setFocus';
 
 export default function Inputitem(props) {
+	const key = inputBarState;
+
 	const render = () => {
+		const [state, setState] = useState(key);
+
+		const {
+			inputDate,
+			selectedCategory,
+			inputContent,
+			selectedPayment,
+			selectedIO,
+			inputAmount,
+			openCategory,
+			openPayment,
+			basicCategory,
+			userCategory,
+			userPayment,
+			lastFocusInput,
+		} = state;
+
 		if (props.inputType === 'text') {
 			return html`<div class=${props.itemType}>
 				<div class="inputbar-label">${props.label}</div>
 				<div class="inputbar-input">
-					<input class="${props.class}" type="text" placeholder="입력하세요" />
+					<input
+						class="${props.class}"
+						type="text"
+						placeholder="입력하세요"
+						value="${props.class === 'inputbar-date'
+							? inputDate
+							: inputContent}"
+						onKeyUp="${() => {
+							setState(getValue(props.class));
+						}}"
+					/>
 				</div>
 			</div>`;
 		} else if (props.inputType === 'dropdown') {
 			return html`<div class="${props.itemType}">
 				<div class="inputbar-label">${props.label}</div>
-				<div class="${props.class}">
-					<select class="inputbar-dropdown">
-						<option value="">선택하세요</option>
-						<option value="생활">생활</option>
-						<option value="식비">식비</option>
-						<option value="교통">교통</option>
-						<option value="쇼핑/뷰티">쇼핑/뷰티</option>
-						<option value="의료/건강">의료/건강</option>
-						<option value="문화/여가">문화/여가</option>
-						<option value="미분류">미분류</option>
-					</select>
+				<div
+					class="${props.class}"
+					onClick="${() => {
+						props.label === '분류'
+							? setState({ openCategory: !openCategory, lastFocusInput: '' })
+							: setState({ openPayment: !openPayment, lastFocusInput: '' });
+					}}"
+				>
+					<div class="inputbar-dropdown">
+						<div>
+							${props.label === '분류' ? selectedCategory : selectedPayment}
+						</div>
+						<img src="./src/public/images/more.svg" alt="" />
+					</div>
+					${openCategory && props.label === '분류'
+						? createElement(Dropdown, {
+								basicList: basicCategory,
+								customList: userCategory,
+								isCategory: true,
+						  })
+						: ``}
+					${openPayment && props.label !== '분류'
+						? createElement(Dropdown, {
+								basicList: [],
+								customList: userPayment,
+								isCategory: false,
+						  })
+						: ``}
 				</div>
 			</div>`;
 		} else if (props.inputType === 'amount') {
@@ -34,10 +85,21 @@ export default function Inputitem(props) {
 				<div class="inputbar-input">
 					${createElement(Imagebutton, {
 						class: 'inputbar-io',
-						name: 'plus',
+						name: selectedIO ? 'plus' : 'minus',
+						eventHandler: () => {
+							setState({ selectedIO: !selectedIO });
+						},
 					})}
-					<input class="${props.class}" type="text" placeholder="입력하세요" />
-					원
+					<input
+						class="${props.class}"
+						type="text"
+						placeholder="입력하세요"
+						value="${inputAmount}"
+						onKeyup="${() => {
+							setState(getValue(props.class));
+						}}"
+					/>
+					<span>원</span>
 				</div>
 			</div>`;
 		} else {
@@ -45,7 +107,13 @@ export default function Inputitem(props) {
 		}
 	};
 
-	return { render };
+	const didMount = () => {
+		const [state, setState] = useState(key);
+
+		const { lastFocusInput } = state;
+		setFocus(lastFocusInput);
+	};
+	return { key, render, didMount };
 }
 
-// TODO: 카테고리, 결제수단 드롭박스 새로 만들지 말지 결정 & dropdown generate by data
+// TODO:
