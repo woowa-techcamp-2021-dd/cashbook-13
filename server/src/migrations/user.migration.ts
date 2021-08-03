@@ -8,4 +8,11 @@ const createUser = (name: string, githubID: string) =>
 		});
 	});
 
-createUser('테스트맨', 'test@naver.com');
+export const registerUser = async (name: string) => {
+	const result: [User, boolean] = await User.findOrCreate({
+		where: { name },
+		defaults: { name },
+		attributes: ['id'],
+	});
+	return result;
+};
