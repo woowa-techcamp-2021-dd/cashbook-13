@@ -1,22 +1,61 @@
 import html from '../../core/jsx';
+import { useState } from '../../core/vm';
+import selectDropdown from '../../utils/selectDropdown';
+import { inputBarState } from '../../vm/inputBarVM';
 import './style.scss';
 
 export default function Dropdown(props) {
+	const key = inputBarState;
+
 	const render = () => {
+		const [state, setState] = useState(key);
+
 		return html`<div class="dropdown">
 			<ul class="dropdown-list">
-				${['생활', '생활', '생활'].map(
-					(el) => html`<li class="dropdown-list-item"><div>${el}</div></li>`
+				${props.basicList.map(
+					(el) =>
+						html`<li
+							class="dropdown-list-item"
+							onclick="${() => {
+								setState(selectDropdown(el, props.isCategory));
+							}}"
+						>
+							<div>${el}</div>
+						</li>`
 				)}
-				<li class="dropdown-add">
+				${props.customList.map(
+					(el) =>
+						html`<li
+							class="dropdown-list-item"
+							onclick="${() => {
+								setState(selectDropdown(el, props.isCategory));
+							}}"
+						>
+							<div>
+								${el}
+								<span
+									><img
+										src="./src/public/images/cancel.svg"
+										onclick="${() => {
+											console.log('삭제기능');
+										}}"
+								/></span>
+							</div>
+						</li>`
+				)}
+				<li
+					class="dropdown-add"
+					onclick="${() => {
+						console.log('추가기능');
+					}}"
+				>
 					<div>추가하기</div>
-					<img src="./src/public/images/cancel.svg" alt="" />
 				</li>
 			</ul>
 		</div>`;
 	};
 
-	return { render };
+	return { key, render };
 }
 
-// TODO: props로 받아서 이벤트 등록 / props.list로 목록 받기? / isAddable?
+// TODO: 삭제 이벤트 / 삭제 후 default값 변경해야함 / 선택하세요 아닐때 색깔 검은색으로
