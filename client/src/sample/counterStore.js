@@ -12,7 +12,17 @@ export const countName = initStoreState({
 
 export const list = initStoreState({
 	key: 'list',
-	defaultValue: [1, 2, 3, 4],
+	defaultValue: [],
+	initialize: async () => {
+		const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+		await new Promise((resolve) => {
+			setTimeout(() => {
+				resolve();
+			}, 2000);
+		});
+		const sample = res.json();
+		return sample;
+	},
 });
 
 export const test = initStoreState({
@@ -25,7 +35,7 @@ export const modelOne = initStoreState({
 	defaultValue: 'one',
 });
 
-export const modelTow = initStoreState({
+export const modelTwo = initStoreState({
 	key: 'two',
 	defaultValue: 'two',
 });
