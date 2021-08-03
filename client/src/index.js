@@ -1,6 +1,9 @@
 import './style.scss';
 import App from './app';
-import { createElement } from './core/createElement';
+import {
+	createElement,
+	excuteDidMountCallbackQueue,
+} from './core/createElement';
 
 const $test = document.getElementById('test');
 
@@ -15,3 +18,4 @@ $test.addEventListener('click', async () => {
 
 const $app = document.getElementById('app');
 $app.append(createElement(App));
+excuteDidMountCallbackQueue();
