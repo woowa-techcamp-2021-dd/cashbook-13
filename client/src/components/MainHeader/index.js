@@ -1,16 +1,19 @@
-import html from '../core/jsx';
-import { useState } from '../core/vm';
-import { createElement } from '../core/createElement';
-import { dateNowState } from '../vm/dateVM';
-import ImageButton from './ImageButton';
-import calculateMonth from '../utils/calculateMonth';
+import html from '../../core/jsx';
+import { useState } from '../../core/vm';
+import { createElement } from '../../core/createElement';
+import { dateNowState } from '../../vm/dateVM';
+import ImageButton from '../ImageButton';
+import calculateMonth from '../../utils/calculateMonth';
+import './style.scss';
 
 export default function MainHeader() {
 	const key = dateNowState;
+
 	const render = () => {
 		const [state, setState] = useState(key);
 		const { year, month } = state;
-		return html`<header>
+
+		return html`<header class="header">
 			<div class="header-title">우아한 가계부</div>
 			<span class="header-row">
 				${createElement(ImageButton, {

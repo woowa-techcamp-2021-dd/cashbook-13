@@ -1,8 +1,9 @@
-import html from '../core/jsx';
-import { createElement } from '../core/createElement';
-import { appState } from '../sample/counterVM';
-import RecordListHeader from './RecordListHeader';
-import RecordListItem from './RecordListItem';
+import html from '../../core/jsx';
+import { createElement } from '../../core/createElement';
+import { appState } from '../../sample/counterVM';
+import RecordListHeader from '../RecordListHeader';
+import RecordListItem from '../RecordListItem';
+import './style.scss';
 
 export default function RecordList() {
 	const key = appState;

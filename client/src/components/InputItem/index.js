@@ -1,12 +1,9 @@
-import { createElement } from '../core/createElement';
-import html from '../core/jsx';
-// import { createElement } from './core/createElement';
-import { appState } from '../sample/counterVM';
-import Imagebutton from './ImageButton';
+import { createElement } from '../../core/createElement';
+import html from '../../core/jsx';
+import Imagebutton from '../ImageButton';
+import './style.scss';
 
 export default function Inputitem(props) {
-	const key = appState;
-
 	const render = () => {
 		if (props.inputType === 'text') {
 			return html`<div class=${props.itemType}>
@@ -36,7 +33,7 @@ export default function Inputitem(props) {
 				<div class="inputbar-label">${props.label}</div>
 				<div class="inputbar-input">
 					${createElement(Imagebutton, {
-						class: props.imgClass,
+						class: 'inputbar-io',
 						name: 'plus',
 					})}
 					<input class="${props.class}" type="text" placeholder="입력하세요" />
@@ -48,7 +45,7 @@ export default function Inputitem(props) {
 		}
 	};
 
-	return { key, render };
+	return { render };
 }
 
 // TODO: 카테고리, 결제수단 드롭박스 새로 만들지 말지 결정 & dropdown generate by data

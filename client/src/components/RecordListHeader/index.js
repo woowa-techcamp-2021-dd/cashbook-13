@@ -1,5 +1,6 @@
-import html from '../core/jsx';
-import { appState } from '../sample/counterVM';
+import html from '../../core/jsx';
+import { appState } from '../../sample/counterVM';
+import './style.scss';
 
 export default function RecordListHeader(props) {
 	const key = appState;

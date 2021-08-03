@@ -1,0 +1,39 @@
+.record-list-item {
+	display: flex;
+	font-size: 1.8rem;
+	padding: 2rem 0;
+	width: 84.8rem;
+	border-bottom: 1px solid #ccd3d3;
+	vertical-align: middle;
+	text-align: center;
+	line-height: 3rem;
+}
+
+.record-category {
+	font-size: 1.4rem;
+	background-color: #d092e2;
+	color: #fff;
+	border-radius: 100rem;
+	width: 9.2rem;
+	height: 3rem;
+	margin: 0 1rem;
+}
+
+.record-content {
+	width: 30.6rem;
+	text-align: left;
+	margin-left: 1rem;
+}
+
+.record-payment {
+	color: #626666;
+	width: 19.8rem;
+	text-align: left;
+	margin-left: 1rem;
+}
+
+.record-amount {
+	font-weight: 500;
+	width: 19.8rem;
+	text-align: right;
+}

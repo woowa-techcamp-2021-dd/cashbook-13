@@ -1,8 +1,9 @@
-import html from '../core/jsx';
-import { createElement } from '../core/createElement';
-import { appState } from '../sample/counterVM';
-import InputItem from './InputItem';
-import ImageButton from './ImageButton';
+import html from '../../core/jsx';
+import { createElement } from '../../core/createElement';
+import { appState } from '../../sample/counterVM';
+import InputItem from '../InputItem';
+import ImageButton from '../ImageButton';
+import './style.scss';
 
 export default function InputBar() {
 	const key = appState;
@@ -38,7 +39,6 @@ export default function InputBar() {
 				itemType: 'inputbar-item-last',
 				label: '금액',
 				class: 'inputbar-amount',
-				imgClass: 'inputbar-io',
 			})}
 			${createElement(ImageButton, {
 				class: 'inputbar-save',

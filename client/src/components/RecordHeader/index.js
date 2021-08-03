@@ -1,7 +1,8 @@
-import html from '../core/jsx';
-import { createElement } from '../core/createElement';
-import { appState } from '../sample/counterVM';
-import ImageButton from './ImageButton';
+import html from '../../core/jsx';
+import { createElement } from '../../core/createElement';
+import { appState } from '../../sample/counterVM';
+import ImageButton from '../ImageButton';
+import './style.scss';
 
 export default function RecordHeader() {
 	const key = appState;
