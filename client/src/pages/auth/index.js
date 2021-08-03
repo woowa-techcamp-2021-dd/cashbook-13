@@ -23,9 +23,13 @@ export default function Auth() {
 const renderAuth = (auth, setState) => {
 	switch (auth) {
 		case 'signIn':
-			return html`<div id="auth-login">
+			return html`<div id="auth-signin">
 				<form>
-					<input type="text" placeholder="아이디를 입력해주세요" />
+					<input
+						class="input large"
+						type="text"
+						placeholder="아이디를 입력해주세요"
+					/>
 					<div class="box-id-error">error</div>
 					<button class="btn large">로그인</button>
 				</form>
@@ -42,11 +46,17 @@ const renderAuth = (auth, setState) => {
 				</div>
 			</div>`;
 		case 'signUp':
-			return html`<form action="">
-				<input type="text" placeholder="영문, 숫자 조합 6~15자" />
-				<div></div>
-				<button>회원가입 하기</button>
-			</form>`;
+			return html`<div id="auth-signup">
+				<form action="">
+					<input
+						class="input large"
+						type="text"
+						placeholder="영문, 숫자 조합 6~15자"
+					/>
+					<div class="box-id-error">error</div>
+					<button class="btn large">회원가입 하기</button>
+				</form>
+			</div>`;
 		default:
 	}
 };
