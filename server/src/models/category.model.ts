@@ -3,6 +3,7 @@ import { sequelize } from '.';
 
 interface CategoryAttributes {
 	name: string;
+	color: string;
 	createdAt?: Date;
 	updatedAt?: Date;
 }
@@ -10,6 +11,7 @@ interface CategoryAttributes {
 export default class Category extends Model<CategoryAttributes> {
 	public readonly id!: number;
 	public name!: string;
+	public color!: string;
 
 	public readonly createdAt!: Date;
 	public readonly updatedAt!: Date;
@@ -18,6 +20,10 @@ export default class Category extends Model<CategoryAttributes> {
 Category.init(
 	{
 		name: {
+			type: DataTypes.STRING(45),
+			allowNull: false,
+		},
+		color: {
 			type: DataTypes.STRING(45),
 			allowNull: false,
 		},
@@ -34,7 +40,7 @@ Category.init(
 	},
 	{
 		modelName: 'category',
-		tableName: 'categories',
+		tableName: 'category',
 		sequelize,
 		freezeTableName: true,
 		timestamps: true,

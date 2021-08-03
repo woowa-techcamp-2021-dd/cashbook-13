@@ -1,10 +1,10 @@
 import User from '../models/user.model';
 
-const createUser = (name: string, email: string) =>
+const createUser = (name: string, githubID: string) =>
 	new Promise((resolve, reject) => {
 		User.create({
 			name,
-			email,
+			githubID,
 		});
 	});
 
