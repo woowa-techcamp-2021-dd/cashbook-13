@@ -5,7 +5,7 @@ export default function ImageButton(props) {
 	const key = appState;
 
 	const render = () => {
-		return html`<span class="image-button">
+		return html`<span class="image-button" onclick="${props.eventHandler}">
 			<img class="${props.class}" src="./src/assets/images/${props.name}.svg" />
 		</span>`;
 	};
