@@ -23,10 +23,10 @@ const signin = async (name: string) => {
 	return user;
 };
 
-const saveRefreshToken = async (token: string) => {
-	const res = await insertRefreshTokenToUser(token);
+const saveRefreshToken = async (token: string, id: number) => {
+	const res = await insertRefreshTokenToUser(token, id);
 
-	if (false) {
+	if (!res[0]) {
 		throw new ServiceError(400, '리프레시 토큰 저장 실패');
 	}
 };

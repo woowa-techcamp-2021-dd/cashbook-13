@@ -13,9 +13,12 @@ const authController = {
 		const { name } = req.body;
 		const user = await userService.signin(name);
 
-		const refreshToken = jwtService.getRefreshToken();
+		const refreshToken = jwtService.getRefreshToken({
+			id: user.id,
+			name: user.name,
+		});
 
-		const result = await userService.saveRefreshToken(refreshToken); // const { accessToken, refreshToken } = {};
+		const result = await userService.saveRefreshToken(refreshToken, user.id);
 
 		const accessToken = jwtService.getAccessToken({
 			id: user.id,

@@ -24,13 +24,13 @@ const getAccessToken = (payload: JWTSign) => {
 	return jwt.sign({ user: payload }, JWT_SECRET, options);
 };
 
-const getRefreshToken = () => {
+const getRefreshToken = (payload: JWTSign) => {
 	const options = {
 		expiresIn: JWT_REFRESH_EXPIRES_IN,
 		issuer: JWT_ISSUER,
 	};
 
-	return jwt.sign({}, JWT_SECRET, options);
+	return jwt.sign({ user: payload }, JWT_SECRET, options);
 };
 
 const verifyToken = (token: string) => {
