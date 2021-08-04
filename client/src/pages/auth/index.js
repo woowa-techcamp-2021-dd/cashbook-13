@@ -1,10 +1,11 @@
 import html from '@/core/jsx';
 import './style.scss';
 
-import { useState } from '@/core/vm';
+import { useState, useSetState } from '@/core/vm';
+
 import { authVMState } from '@/vm/authVM';
 
-import { requestSignUp } from '@/utils/request';
+import { requestSignup } from '@/utils/request';
 import errorGenerator from '@/utils/errorGenerator';
 import { MESSAGE, REGEX } from '@/config/constant';
 
@@ -27,82 +28,100 @@ const renderAuth = (state, setState) => {
 	const {
 		auth,
 		inputValue,
-		isVaildInput: { signUp, signIn },
+		isVaildInput: { signup, signin },
 		errorMessage,
 	} = state;
 
-	const SignupHandler = (e) => {
-		e.preventDefault();
-		const form = document.forms.signup;
-		const inputName = form.elements['user-name'].value;
-
-		try {
-			if (vaildateName(inputName)) {
-				requestSignUp(inputName);
-			}
-		} catch (err) {
-			const { message } = err;
-
-			setState({
-				isVaildInput: { signUp: true, signIn: false },
-				errorMessage: message,
-			});
-		}
-	};
-
 	switch (auth) {
-		case 'signIn':
+		case 'signin':
 			return html`<div id="auth-signin">
-				<form>
+				<form name="signin">
 					<input
+						id="signin-username"
 						class="input large"
 						type="text"
 						placeholder="아이디를 입력해주세요"
 						value=${inputValue}
 						autofocus
 					/>
-					<div class="box-id-error">${signIn ? 'error' : ''}</div>
-					<button class="btn large">로그인</button>
+					<div class="box-id-error">${signin ? errorMessage : ''}</div>
+					<button
+						class="btn large"
+						onClick=${onSubmitForm('signin', 'signin-username')}
+					>
+						로그인
+					</button>
 				</form>
 				<a href="/" class="btn large github">GitHub 로그인</a>
 				<div id="footer">
 					<div>아이디 찾기</div>
 					<div
 						onClick=${() => {
-							setState({ auth: 'signUp' });
+							setState({ auth: 'signup' });
 						}}
 					>
 						회원가입
 					</div>
 				</div>
 			</div>`;
-		case 'signUp':
+		case 'signup':
 			return html`<div id="auth-signup">
-				<form action="" name="signup">
+				<form name="signup">
 					<input
-						id="user-name"
+						id="signup-username"
 						class="input large"
 						type="text"
 						placeholder="영문, 숫자 조합 6~15자"
 						value=${inputValue}
 						oninput="this.reportValidity()"
-						oninvalid=${inputHandler}
+						oninvalid=${onInputUsername}
 						pattern="^[a-zA-Z](?=.{0,14}[0-9])[0-9a-zA-Z]{5,14}$"
 						required
 					/>
-					<div class="box-id-error">${signUp ? errorMessage : ''}</div>
-					<button class="btn large" onClick=${SignupHandler}>
+					<div class="box-id-error">${signup ? errorMessage : ''}</div>
+					<button
+						class="btn large"
+						onClick=${onSubmitForm('signup', 'signup-username')}
+					>
 						회원가입 하기
 					</button>
 				</form>
 			</div>`;
 		default:
+			throw Error('');
 	}
 };
 
-const inputHandler = ({ target }) => {
+const onInputUsername = ({ target }) => {
 	const isValid = target.validity.patternMismatch;
 	target.setCustomValidity(isValid ? MESSAGE.INVAILD_NICKNAME : '');
+};
+
+const onSubmitForm = (formID, inputID) => async (e) => {
+	const setState = useSetState(authVMState);
+
+	e.preventDefault();
+	const inputName = getFormData(formID, inputID);
+
+	try {
+		vaildateName(inputName) ?? (await requestSignup(inputName)) ?? goMain();
+	} catch (err) {
+		const { message } = err;
+		setState({
+			isVaildInput: {
+				signup: formID === 'signup',
+				signin: formID === 'signin',
+			},
+			errorMessage: message,
+		});
+	}
+};
+const goMain = () => {
+	console.log('go main');
+};
+const getFormData = (formId, inputID) => {
+	const form = document.forms[formId];
+	return form.elements[inputID].value;
 };
 
 const vaildateName = (name) => {
@@ -112,11 +131,11 @@ const vaildateName = (name) => {
 			code: 'wrong-input-form',
 		});
 	}
+
 	if (name.length < 6 || name.length > 15) {
 		throw errorGenerator({
 			message: MESSAGE.INVAILD_NICKNAME_LENGTH,
 			code: 'wrong-input-length',
 		});
 	}
-	return true;
 };
