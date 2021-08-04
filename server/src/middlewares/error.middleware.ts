@@ -1,27 +1,21 @@
 import ServiceError from '../errors/service-error';
 
-import { Request, Response } from 'express';
-
-interface responseBody {
-	status: number;
-	message: string;
-}
+import { NextFunction, Request, Response } from 'express';
 
 const errorMiddleware = (
 	error: Error | Error[],
 	req: Request,
-	res: Response
+	res: Response,
+	next: NextFunction
 ) => {
 	let status = 500;
 	let message = '서버 오류';
-
 	if (error instanceof ServiceError) {
 		status = error.status;
 		message = error.message;
 	}
 
-	const responseBody: responseBody = { status, message };
-	res.status(status).json(responseBody);
+	res.status(status).json({ message });
 };
 
 export default errorMiddleware;

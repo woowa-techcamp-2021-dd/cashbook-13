@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 const wrapAsync = (fn: Function) => {
 	return (req: Request, res: Response, next: NextFunction) => {

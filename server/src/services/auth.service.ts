@@ -3,7 +3,6 @@ import ServiceError from '../errors/service-error';
 
 export const registerUserService = async (name: string) => {
 	const [user, created] = await registerUser(name);
-	console.log('created : ', created);
 	if (!created) {
 		throw new ServiceError(409, '사용중인 유저 네임입니다.');
 	}

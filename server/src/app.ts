@@ -36,6 +36,7 @@ app.get('/fail', (_, res) => {
 app.get('/', (_, res) => {
 	res.send('<h1>우아한 가계부 13팀 서버입니다.</h1>');
 });
+
 app.use(errorMiddleware);
 
 app.listen(PORT, async () => {
