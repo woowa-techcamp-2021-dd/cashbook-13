@@ -1,20 +1,24 @@
 import { Request, Response } from 'express';
-import { registerUserService } from '../services/auth.service';
+import {
+	registerUserService,
+	signinUserService,
+} from '../services/auth.service';
 
 const authController = {
 	signUp: async (req: Request, res: Response) => {
 		const { name } = req.body;
-		console.log('name : ', name);
-		try {
-			const user = await registerUserService(name);
-			res.status(200).json({ message: '성공' });
-		} catch (err) {
-			res.status(err.status).json({ message: err.message });
-		}
+		await registerUserService(name);
+		res.status(200).json({ message: '회원가입에 성공했습니다!' });
 	},
 	signIn: async (req: Request, res: Response) => {
 		const { name } = req.body;
-		console.log(name);
+		const user = await signinUserService(name);
+
+		// const { accessToken, refreshToken } = {};
+
+		// res.setHeader();
+		// res.setHeader();
+		res.status(200).json({ message: '로그인에 성공했습니다!' });
 	},
 };
 
