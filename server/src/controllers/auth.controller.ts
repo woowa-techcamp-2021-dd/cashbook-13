@@ -1,25 +1,35 @@
 import { Request, Response, NextFunction } from 'express';
-import {
-	registerUserService,
-	signinUserService,
-} from '../services/auth.service';
-
+import userService from '../services/user.service';
+import jwtService from '../services/jwt.service';
+import dotenv from '../config/dotenv';
+const { JWT_ACCESS_EXPIRES_IN, JWT_REFRESH_EXPIRES_IN } = dotenv;
 const authController = {
 	signUp: async (req: Request, res: Response, next: NextFunction) => {
 		const { name } = req.body;
-		await registerUserService(name);
+		await userService.register(name);
 		res.status(200).json({ message: '회원가입에 성공했습니다!' });
 	},
 	signIn: async (req: Request, res: Response, next: NextFunction) => {
 		const { name } = req.body;
-		const user = await signinUserService(name);
+		const user = await userService.signin(name);
 
-		console.log(11);
-		// const { accessToken, refreshToken } = {};
+		const refreshToken = jwtService.getRefreshToken();
 
-		// res.setHeader();
-		// res.setHeader();
-		res.status(200).json({ message: '로그인에 성공했습니다!' });
+		const result = await userService.saveRefreshToken(refreshToken); // const { accessToken, refreshToken } = {};
+
+		const accessToken = jwtService.getAccessToken({
+			id: user.id,
+			name: user.name,
+		});
+		res.cookie('refreshToken', refreshToken, {
+			httpOnly: true,
+			expires: new Date(Date.now() + +JWT_REFRESH_EXPIRES_IN * 1000),
+		});
+		res.status(200).json({
+			message: '로그인에 성공했습니다!',
+			accessToken,
+			JWT_ACCESS_EXPIRES_IN,
+		});
 	},
 };
 
