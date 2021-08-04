@@ -19,12 +19,11 @@ export const requestSignup = (name) =>
 	new Promise((resolve, reject) => {
 		axios
 			.post('/auth/signup', { name })
-			.then(onLoginSuccess)
 			.then((res) => {
 				resolve(res);
 			})
 			.catch((error) => {
-				reject(error.response.data);
+				reject(error.response);
 			});
 	});
 

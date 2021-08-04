@@ -5,7 +5,7 @@ import { useState, useSetState } from '@/core/vm';
 
 import { authVMState } from '@/vm/authVM';
 
-import { requestSignup } from '@/utils/request';
+import { requestSignup, requestSignin } from '@/utils/request';
 import errorGenerator from '@/utils/errorGenerator';
 import { MESSAGE, REGEX } from '@/config/constant';
 
@@ -104,9 +104,15 @@ const onSubmitForm = (formID, inputID) => async (e) => {
 	const inputName = getFormData(formID, inputID);
 
 	try {
-		vaildateName(inputName) ?? (await requestSignup(inputName)) ?? goMain();
+		vaildateName(inputName);
+		const res =
+			formID === 'signup'
+				? await requestSignup(inputName)
+				: await requestSignin(inputName);
+
+		goMain(res);
 	} catch (err) {
-		const { message } = err;
+		const { message } = err.data;
 		setState({
 			isVaildInput: {
 				signup: formID === 'signup',
@@ -116,8 +122,8 @@ const onSubmitForm = (formID, inputID) => async (e) => {
 		});
 	}
 };
-const goMain = () => {
-	console.log('go main');
+const goMain = (res) => {
+	console.log('회원가입이면 로그인으로, 로그인이면 메인으로');
 };
 const getFormData = (formId, inputID) => {
 	const form = document.forms[formId];
