@@ -2,7 +2,7 @@ import { initStoreState } from '../core/store';
 
 export const authState = initStoreState({
 	key: 'auth',
-	defaultValue: 'signIn',
+	defaultValue: 'signin',
 });
 
 export const inputValueState = initStoreState({
@@ -13,8 +13,8 @@ export const inputValueState = initStoreState({
 export const isVaildInputState = initStoreState({
 	key: 'isVaildInput',
 	defaultValue: {
-		signUp: false,
-		signIn: false,
+		signup: false,
+		signin: false,
 	},
 });
 
