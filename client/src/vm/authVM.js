@@ -1,8 +1,13 @@
 import { initVMState } from '../core/vm';
 
-import { authState } from '../store/authStore';
+import {
+	authState,
+	inputValueState,
+	isVaildInputState,
+	errorMessageState,
+} from '../store/authStore';
 
 export const authVMState = initVMState({
 	key: 'auth',
-	targets: [authState],
+	targets: [authState, inputValueState, isVaildInputState, errorMessageState],
 });
