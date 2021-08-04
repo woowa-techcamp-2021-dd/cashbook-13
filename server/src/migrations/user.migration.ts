@@ -10,9 +10,21 @@ export const registerUser = async (name: string) => {
 };
 
 export const findUser = async (name: string) => {
-	const result = await User.findOne({
+	const user = await User.findOne({
 		where: { name },
+		attributes: ['id', 'name'],
 	});
+	return user;
+};
 
+export const insertRefreshTokenToUser = async (token: string, id: number) => {
+	const result = await User.update(
+		{ refresh_token: token },
+		{
+			where: {
+				id,
+			},
+		}
+	);
 	return result;
 };
