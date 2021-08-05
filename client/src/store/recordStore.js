@@ -1,4 +1,5 @@
 import { initStoreState } from '../core/store';
+import { requestRecord } from '../utils/request';
 
 export const dateModel = initStoreState({
 	key: 'date',
@@ -12,19 +13,7 @@ export const dateModel = initStoreState({
 export const recordModel = initStoreState({
 	key: 'records',
 	defaultValue: [],
-	initialize: async () => {
-		const year = new Date().getFullYear();
-		const month = new Date().getMonth();
-		return await fetch(
-			`http://localhost:4000/api/record/user/records?date=${
-				year.toString() + month.toString().padStart(2, '0')
-			}01`
-		)
-			.then((res) => res.json())
-			.then((data) => {
-				return data.record;
-			});
-	},
+	initialize: requestRecord,
 });
 
 export const inRecordModel = initStoreState({
@@ -47,6 +36,7 @@ export const dailyInModel = initStoreState({
 	key: 'dailyIn',
 	defaultValue: [],
 	initialize: async () =>
+		// todo fix date
 		await fetch('http://localhost:4000/api/record/user/records?date=20210728')
 			.then((res) => res.json())
 			.then((data) => {
