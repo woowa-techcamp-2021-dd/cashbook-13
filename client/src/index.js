@@ -10,7 +10,7 @@ import { requestSilentRefresh } from './utils/request';
 // const $test = document.getElementById('test');
 
 // $test.addEventListener('click', async () => {
-// 	const res = await fetch('http://localhost:4000/api/record?userID=1', {
+// 	const res = await fetch('http://3.35.132.151:4000/api/record?userID=1', {
 // 		credentials: 'include',
 // 	}).then((res) => {
 // 		if (!res.ok) return;

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let TIMER;
 
-axios.defaults.baseURL = 'http://localhost:4000/api';
+axios.defaults.baseURL = 'http://3.35.132.151:4000/api';
 axios.defaults.withCredentials = true;
 
 export const requestSignin = (name) =>
@@ -58,7 +58,7 @@ export const requestRecord = () =>
 		const month = new Date().getMonth();
 		axios
 			.get(
-				`http://localhost:4000/api/record/user/records?date=${
+				`http://3.35.132.151:4000/api/record/user/records?date=${
 					year.toString() + month.toString().padStart(2, '0')
 				}01`
 			)
@@ -74,7 +74,7 @@ export const requestRecord = () =>
 // 	const year = new Date().getFullYear();
 // 	const month = new Date().getMonth();
 // 	return await fetch(
-// 		`http://localhost:4000/api/record/user/records?date=${
+// 		`http://3.35.132.151:4000/api/record/user/records?date=${
 // 			year.toString() + month.toString().padStart(2, '0')
 // 		}01`
 // 	)

@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import jwtService from '../services/jwt.service';
 import userService from '../services/user.service';
-import dotenv from '../config/dotenv';
+import dotenvs from '../config/dotenv';
 
-const { JWT_REFRESH_EXPIRES_IN } = dotenv;
+const { JWT_REFRESH_EXPIRES_IN } = dotenvs;
 
 const checkTokensMiddleware = async (
 	req: Request,

@@ -7,7 +7,7 @@ export default async function submitModal() {
 
 		if (cls === 'modal-category') {
 			const category = await fetch(
-				'http://localhost:4000/api/category/create',
+				'http://3.35.132.151:4000/api/category/create',
 				{
 					method: 'POST',
 					headers: {
@@ -25,7 +25,7 @@ export default async function submitModal() {
 					return data;
 				});
 
-			await fetch('http://localhost:4000/api/user/category/create', {
+			await fetch('http://3.35.132.151:4000/api/user/category/create', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { decode } from 'punycode';
-import dotenv from '../config/dotenv';
+import dotenvs from '../config/dotenv';
 
 interface JWTSign {
 	id: number;
@@ -12,7 +12,7 @@ const {
 	JWT_ISSUER,
 	JWT_SUBJECT,
 	JWT_SECRET,
-} = dotenv;
+} = dotenvs;
 
 const getAccessToken = (payload: JWTSign) => {
 	const options: jwt.SignOptions = {

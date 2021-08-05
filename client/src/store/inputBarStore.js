@@ -54,7 +54,7 @@ export const basicCategoryModel = initStoreState({
 	key: 'basicCategory',
 	defaultValue: [],
 	initialize: async () =>
-		await fetch('http://localhost:4000/api/category/categories/default')
+		await fetch('http://3.35.132.151:4000/api/category/categories/default')
 			.then((res) => res.json())
 			.then((data) => {
 				return data.categories;

@@ -7,9 +7,11 @@ import apiRouter from './routes';
 import session from 'express-session';
 import passport from 'passport';
 import errorMiddleware from './middlewares/error.middleware';
+import dotenvs from './config/dotenv';
 
 dotenv.config();
 
+const { CLIENT } = dotenvs;
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -17,7 +19,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: false }));
 app.use(express.static('public'));
 app.use(cookieParser());
-app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
+app.use(cors({ origin: CLIENT, credentials: true }));
 app.use(
 	session({ secret: 'SECET_CODE', resave: true, saveUninitialized: false })
 );

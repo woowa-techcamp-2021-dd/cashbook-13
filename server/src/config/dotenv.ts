@@ -7,7 +7,7 @@ const load = (key: string): string => {
 	return value;
 };
 
-const dotenv = {
+const dotenvs = {
 	PORT: load('PORT'),
 	DB_USER: load('DB_USER'),
 	DB_HOST: load('DB_HOST'),
@@ -19,6 +19,8 @@ const dotenv = {
 	JWT_ISSUER: load('JWT_ISSUER'),
 	JWT_SUBJECT: load('JWT_SUBJECT'),
 	JWT_SECRET: load('JWT_SECRET'),
+	CLIENT: load('CLIENT'),
+	API_SERVER: load('API_SERVER'),
 };
 
-export default dotenv;
+export default dotenvs;

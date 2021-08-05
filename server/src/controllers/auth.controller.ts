@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import userService from '../services/user.service';
 import jwtService from '../services/jwt.service';
-import dotenv from '../config/dotenv';
+import dotenvs from '../config/dotenv';
 import HTTPError from '../errors/service-error';
 
-const { JWT_ACCESS_EXPIRES_IN, JWT_REFRESH_EXPIRES_IN } = dotenv;
+const { JWT_ACCESS_EXPIRES_IN, JWT_REFRESH_EXPIRES_IN } = dotenvs;
 
 const signup = async (req: Request, res: Response, next: NextFunction) => {
 	const { name } = req.body;

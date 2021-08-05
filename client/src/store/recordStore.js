@@ -37,7 +37,9 @@ export const dailyInModel = initStoreState({
 	defaultValue: [],
 	initialize: async () =>
 		// todo fix date
-		await fetch('http://localhost:4000/api/record/user/records?date=20210728')
+		await fetch(
+			'http://3.35.132.151:4000/api/record/user/records?date=20210728'
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				const totalIn = new Array(32).fill(0);
@@ -57,7 +59,9 @@ export const dailyOutModel = initStoreState({
 	key: 'dailyOut',
 	defaultValue: 0,
 	initialize: async () =>
-		await fetch('http://localhost:4000/api/record/user/records?date=20210728')
+		await fetch(
+			'http://3.35.132.151:4000/api/record/user/records?date=20210728'
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				const totalOut = new Array(32).fill(0);
@@ -77,7 +81,9 @@ export const totalInModel = initStoreState({
 	key: 'totalIn',
 	defaultValue: 0,
 	initialize: async () =>
-		await fetch('http://localhost:4000/api/record/user/records?date=20210728')
+		await fetch(
+			'http://3.35.132.151:4000/api/record/user/records?date=20210728'
+		)
 			.then((res) => res.json())
 			.then((data) =>
 				data.record.reduce(function total(sum, row) {
@@ -94,7 +100,9 @@ export const totalOutModel = initStoreState({
 	key: 'totalOut',
 	defaultValue: 0,
 	initialize: async () =>
-		await fetch('http://localhost:4000/api/record/user/records?date=20210728')
+		await fetch(
+			'http://3.35.132.151:4000/api/record/user/records?date=20210728'
+		)
 			.then((res) => res.json())
 			.then((data) =>
 				data.record.reduce(function total(sum, row) {

@@ -27,7 +27,7 @@ export default async function saveRecord(
 				.replace('T', ' ')
 				.substr(0, 19),
 		};
-		return await fetch('http://localhost:4000/api/record/user/records', {
+		return await fetch('http://3.35.132.151:4000/api/record/user/records', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
