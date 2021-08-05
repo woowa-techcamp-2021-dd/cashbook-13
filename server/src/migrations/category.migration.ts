@@ -1,12 +1,10 @@
 import Category from '../models/category.model';
 import { Op } from 'sequelize';
 
-export const createCategory = (name: string, color: string) =>
-	new Promise((resolve, reject) => {
-		Category.create({
-			name,
-			color,
-		});
+export const createCategory = async (name: string, color: string) =>
+	await Category.create({
+		name,
+		color,
 	});
 
 export const getDefaultCategories = async () =>
