@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 export const requestSignin = (name) =>
 	new Promise((resolve, reject) => {
 		axios
-			.post('/auth//signin', { name })
+			.post('/auth/signin', { name })
 			.then(onLoginSuccess)
 			.then((res) => {
 				resolve(res);
@@ -51,6 +51,38 @@ export const requestSilentRefresh = () => {
 			console.log('error : ', error);
 		});
 };
+
+export const requestRecord = () =>
+	new Promise((resolve, reject) => {
+		const year = new Date().getFullYear();
+		const month = new Date().getMonth();
+		axios
+			.get(
+				`http://localhost:4000/api/record/user/records?date=${
+					year.toString() + month.toString().padStart(2, '0')
+				}01`
+			)
+			.then((res) => {
+				resolve(res.data.record);
+			})
+			.catch((error) => {
+				reject(error.response);
+			});
+	});
+
+// initialize: async () => {
+// 	const year = new Date().getFullYear();
+// 	const month = new Date().getMonth();
+// 	return await fetch(
+// 		`http://localhost:4000/api/record/user/records?date=${
+// 			year.toString() + month.toString().padStart(2, '0')
+// 		}01`
+// 	)
+// 		.then((res) => res.json())
+// 		.then((data) => {
+// 			return data.record;
+// 		});
+// },
 
 export const onLoginSuccess = (response) => {
 	const { accessToken, JWT_ACCESS_EXPIRES_IN } = response.data;
