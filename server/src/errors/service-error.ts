@@ -1,4 +1,4 @@
-class ServiceError extends Error {
+class HTTPError extends Error {
 	status!: number;
 
 	constructor(status: number, message: string) {
@@ -7,4 +7,4 @@ class ServiceError extends Error {
 	}
 }
 
-export default ServiceError;
+export default HTTPError;
