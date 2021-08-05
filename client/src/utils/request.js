@@ -1,24 +1,15 @@
 import axios from 'axios';
-const JWT_EXPIRY_TIME = 600000; // 60분
+
 let TIMER;
 
 axios.defaults.baseURL = 'http://localhost:4000/api';
 axios.defaults.withCredentials = true;
 
-export const requestSignin = (name) => {
-	axios
-		.post('/auth//signin', { name })
-		.then(onLoginSuccess)
-		.then()
-		.catch((error) => {
-			console.log(error.status);
-		});
-};
-
-export const requestSignup = (name) =>
+export const requestSignin = (name) =>
 	new Promise((resolve, reject) => {
 		axios
-			.post('/auth/signup', { name })
+			.post('/auth//signin', { name })
+			.then(onLoginSuccess)
 			.then((res) => {
 				resolve(res);
 			})
@@ -27,9 +18,34 @@ export const requestSignup = (name) =>
 			});
 	});
 
-const _requestSilentRefresh = () => {
+export const requestSignup = (name) =>
+	new Promise((resolve, reject) => {
+		axios
+			.post('/auth/signup', { name })
+			.then((res) => {
+				clearTimeout(TIMER);
+				resolve(res);
+			})
+			.catch((error) => {
+				reject(error.response);
+			});
+	});
+
+export const requestSignout = () =>
+	new Promise((resolve, reject) => {
+		axios
+			.delete('/auth/singout', {})
+			.then((res) => {
+				resolve(res);
+			})
+			.catch((error) => {
+				reject(error.response);
+			});
+	});
+
+export const requestSilentRefresh = () => {
 	axios
-		.post('/auth//silent-refresh', {})
+		.put('/auth/silent-refresh', {})
 		.then(onLoginSuccess)
 		.catch((error) => {
 			console.log('error : ', error);
@@ -37,13 +53,8 @@ const _requestSilentRefresh = () => {
 };
 
 export const onLoginSuccess = (response) => {
-	const { accessToken } = response.data;
+	const { accessToken, JWT_ACCESS_EXPIRES_IN } = response.data;
 	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-
-	TIMER = setTimeout(_requestSilentRefresh, JWT_EXPIRY_TIME - 60000);
-	return true;
-};
-
-const singOut = () => {
-	clearTimeout(TIMER);
+	TIMER = setTimeout(requestSilentRefresh, JWT_ACCESS_EXPIRES_IN * 1000);
+	return response;
 };
