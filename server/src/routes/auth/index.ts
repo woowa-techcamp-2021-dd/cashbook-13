@@ -18,7 +18,8 @@ authRouter.get(
 	'/signin/github/callback',
 	passport.authenticate('github', {
 		failureRedirect: '/fail',
-		successRedirect: 'http://localhost:8080',
+		successRedirect:
+			'http://ec2-3-35-132-151.ap-northeast-2.compute.amazonaws.com/',
 	})
 );
 
