@@ -1,4 +1,5 @@
 import html from '../../core/jsx';
+import './style.scss';
 
 export default function ImageButton(props) {
 	const render = () => {
