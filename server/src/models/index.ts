@@ -8,6 +8,12 @@ export const sequelize = new Sequelize(
 	{
 		host: dbConfig.HOST,
 		dialect: 'mysql',
+		timezone: '+09:00',
 		pool,
+		dialectOptions: {
+			charset: 'utf8mb4',
+			dateStrings: true,
+			typeCast: true,
+		},
 	}
 );
