@@ -5,7 +5,7 @@ import { useState, useSetState } from '@/core/vm';
 
 import { authVMState } from '@/vm/authVM';
 
-import { requestSignup, requestSignin } from '@/utils/request';
+import { requestSignup, requestSignin, requestSignout } from '@/utils/request';
 import errorGenerator from '@/utils/errorGenerator';
 import { MESSAGE, REGEX } from '@/config/constant';
 
@@ -28,10 +28,9 @@ const renderAuth = (state, setState) => {
 	const {
 		auth,
 		inputValue,
-		isVaildInput: { signup, signin },
 		errorMessage,
+		isVaildInput: { signup, signin },
 	} = state;
-
 	switch (auth) {
 		case 'signin':
 			return html`<div id="auth-signin">
@@ -105,12 +104,10 @@ const onSubmitForm = (formID, inputID) => async (e) => {
 
 	try {
 		vaildateName(inputName);
-		const res =
-			formID === 'signup'
-				? await requestSignup(inputName)
-				: await requestSignin(inputName);
-
-		goMain(res);
+		formID === 'signup'
+			? await requestSignup(inputName)
+			: await requestSignin(inputName);
+		setState({ isSignin: true });
 	} catch (err) {
 		const { message } = err.data;
 		setState({
@@ -122,9 +119,7 @@ const onSubmitForm = (formID, inputID) => async (e) => {
 		});
 	}
 };
-const goMain = (res) => {
-	console.log('회원가입이면 로그인으로, 로그인이면 메인으로');
-};
+
 const getFormData = (formId, inputID) => {
 	const form = document.forms[formId];
 	return form.elements[inputID].value;

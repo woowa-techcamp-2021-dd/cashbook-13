@@ -13,7 +13,7 @@ export default function Inputitem(props) {
 	const key = inputBarState;
 
 	const render = () => {
-		console.log('inputitem render');
+		// console.log('inputitem render');
 		const [state, setState] = useState(key);
 
 		const {

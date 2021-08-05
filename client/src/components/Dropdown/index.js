@@ -11,7 +11,7 @@ export default function Dropdown(props) {
 	const key = inputBarState;
 
 	const render = () => {
-		console.log('dropdown render');
+		// console.log('dropdown render');
 		const [state, setState] = useState(key);
 
 		return html`<div class="dropdown">
