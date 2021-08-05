@@ -7,8 +7,11 @@ import wrapAsync from '../../middlewares/wrap-async';
 const authRouter = Router();
 gitPassport();
 
-authRouter.post('/signup', wrapAsync(authController.signUp));
-authRouter.post('/signin', wrapAsync(authController.signIn));
+authRouter.post('/signup', wrapAsync(authController.signup));
+authRouter.post('/signin', wrapAsync(authController.signin));
+authRouter.put('/silent-refresh', wrapAsync(authController.silentRefresh));
+authRouter.delete('/signout', wrapAsync(authController.signout));
+
 authRouter.get('/signin/github', passport.authenticate('github'));
 
 authRouter.get(

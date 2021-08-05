@@ -1,4 +1,4 @@
-import ServiceError from '../errors/service-error';
+import HTTPError from '../errors/service-error';
 
 import { NextFunction, Request, Response } from 'express';
 
@@ -10,7 +10,7 @@ const errorMiddleware = (
 ) => {
 	let status = 500;
 	let message = '서버 오류';
-	if (error instanceof ServiceError) {
+	if (error instanceof HTTPError) {
 		status = error.status;
 		message = error.message;
 	}

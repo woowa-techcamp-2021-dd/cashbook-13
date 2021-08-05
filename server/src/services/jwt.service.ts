@@ -24,18 +24,18 @@ const getAccessToken = (payload: JWTSign) => {
 	return jwt.sign({ user: payload }, JWT_SECRET, options);
 };
 
-const getRefreshToken = (payload: JWTSign) => {
+const getRefreshToken = () => {
 	const options = {
 		expiresIn: JWT_REFRESH_EXPIRES_IN,
 		issuer: JWT_ISSUER,
 	};
 
-	return jwt.sign({ user: payload }, JWT_SECRET, options);
+	return jwt.sign({}, JWT_SECRET, options);
 };
 
 const verifyToken = (token: string) => {
 	try {
-		return jwt.verify(token, JWT_SECRET);
+		return jwt.verify(token, JWT_SECRET) as JWTSign;
 	} catch (e) {
 		return null;
 	}

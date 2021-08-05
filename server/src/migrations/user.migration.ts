@@ -28,3 +28,17 @@ export const insertRefreshTokenToUser = async (token: string, id: number) => {
 	);
 	return result;
 };
+
+export const signoutUser = async (id: number) => {
+	const result = await User.update({ refresh_token: null }, { where: { id } });
+
+	return result;
+};
+
+export const findUserByRefreshToken = async (token: string) => {
+	const user = await User.findOne({
+		where: { refresh_token: token },
+		attributes: ['id', 'name'],
+	});
+	return user;
+};

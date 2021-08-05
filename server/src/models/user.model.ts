@@ -4,8 +4,8 @@ import { sequelize } from '.';
 export interface UserAttributes {
 	id?: number;
 	name: string;
-	githubID?: string;
-	refresh_token?: string;
+	githubID?: string | null;
+	refresh_token?: string | null;
 	createdAt?: Date;
 	updatedAt?: Date;
 }
@@ -13,8 +13,8 @@ export interface UserAttributes {
 export default class User extends Model<UserAttributes> {
 	public readonly id!: number;
 	public name!: string;
-	public githubID?: string;
-	public refresh_token?: string;
+	public githubID?: string | null;
+	public refresh_token?: string | null;
 
 	public createdAt!: Date;
 	public updatedAt!: Date;
