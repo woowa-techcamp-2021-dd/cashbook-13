@@ -1,0 +1,30 @@
+.record-header {
+	display: flex;
+	margin: auto;
+	width: 84.8rem;
+	justify-content: space-between;
+	color: #219a95;
+	padding: 0 4rem;
+	margin-bottom: 1.8rem;
+}
+
+.record-title {
+	font-size: 2.2rem;
+}
+
+.record-io {
+	font-size: 1.8rem;
+	display: flex;
+}
+
+.record-in {
+	padding-right: 1.6rem;
+}
+
+.record-io > div > span > img {
+	position: relative;
+	top: 0.3rem;
+	padding-right: 0.7rem;
+	cursor: pointer;
+	z-index: -1;
+}

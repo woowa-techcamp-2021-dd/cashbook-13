@@ -1,4 +1,4 @@
-import recordService from '../services/record.service';
+import { addRecordService, getRecordService } from '../services/record.service';
 import { Request, Response } from 'express';
 
 export const getRecord = async (req: Request, res: Response) => {
@@ -6,7 +6,22 @@ export const getRecord = async (req: Request, res: Response) => {
 	console.log('req.session : ', req.session);
 	console.log('req.passport.user : ', req.user);
 
-	const { userID } = req.query;
-	const record = await recordService(Number(userID));
+	const date = String(req.query.date);
+	// 여기서 id도 넣어야함
+	const record = await getRecordService(1, date);
 	res.status(200).json({ record });
+};
+
+export const addRecord = async (req: Request, res: Response) => {
+	const { user_id, category_id, payment_id, contents, amount, io, date } =
+		req.body;
+	await addRecordService(
+		user_id,
+		category_id,
+		payment_id,
+		contents,
+		amount,
+		io,
+		date
+	);
 };

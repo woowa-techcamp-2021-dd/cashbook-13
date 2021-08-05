@@ -1,0 +1,29 @@
+.record-list-header {
+	display: flex;
+	justify-content: space-between;
+	padding: 2rem 0;
+	width: 84.8rem;
+	border-bottom: 1px solid #ccd3d3;
+}
+
+.record-date {
+	font-size: 1.4rem;
+	color: #000;
+	display: flex;
+}
+
+.record-dayofweek {
+	color: #626666;
+	font-size: 1.4rem;
+	padding-left: 0.8rem;
+}
+
+.record-date-io {
+	display: flex;
+	color: #626666;
+	font-size: 1.4rem;
+}
+
+.record-date-in {
+	padding-right: 0.8rem;
+}
