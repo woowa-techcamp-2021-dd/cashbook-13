@@ -1,5 +1,6 @@
 import html from '../../core/jsx';
 import { useState } from '../../core/vm';
+import getInputBarContent from '../../utils/getInputBarContent';
 import selectDropdown from '../../utils/selectDropdown';
 import { inputBarState } from '../../vm/inputBarVM';
 import './style.scss';
@@ -8,6 +9,7 @@ export default function Dropdown(props) {
 	const key = inputBarState;
 
 	const render = () => {
+		console.log('dropdown render');
 		const [state, setState] = useState(key);
 
 		return html`<div class="dropdown">
@@ -17,10 +19,14 @@ export default function Dropdown(props) {
 						html`<li
 							class="dropdown-list-item"
 							onclick="${() => {
-								setState(selectDropdown(el, props.isCategory));
+								setState(
+									getInputBarContent(
+										selectDropdown(el.name, el.id, props.isCategory)
+									)
+								);
 							}}"
 						>
-							<div>${el}</div>
+							<div>${el.name}</div>
 						</li>`
 				)}
 				${props.customList.map(
@@ -28,11 +34,15 @@ export default function Dropdown(props) {
 						html`<li
 							class="dropdown-list-item"
 							onclick="${() => {
-								setState(selectDropdown(el, props.isCategory));
+								setState(
+									getInputBarContent(
+										selectDropdown(el.name, el.id, props.isCategory)
+									)
+								);
 							}}"
 						>
 							<div>
-								${el}
+								${el.name}
 								<span
 									><img
 										src="./src/public/images/cancel.svg"
