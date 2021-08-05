@@ -2,6 +2,7 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import { sequelize } from '.';
 
 interface CategoryAttributes {
+	id?: number;
 	name: string;
 	color: string;
 	createdAt?: Date;
