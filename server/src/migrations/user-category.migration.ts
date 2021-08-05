@@ -1,6 +1,6 @@
 import UserCategory from '../models/user-category.model';
 
-const createUserCategory = (user_id: number, category_id: number) =>
-	new Promise((resolve, reject) => {
-		UserCategory.create({ user_id, category_id });
-	});
+export const createUserCategory = async (
+	user_id: number,
+	category_id: number
+) => await UserCategory.create({ user_id, category_id });

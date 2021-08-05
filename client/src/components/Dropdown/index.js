@@ -1,8 +1,10 @@
 import html from '../../core/jsx';
 import { useState } from '../../core/vm';
+import controlModal from '../../utils/controlModal';
 import getInputBarContent from '../../utils/getInputBarContent';
 import selectDropdown from '../../utils/selectDropdown';
 import { inputBarState } from '../../vm/inputBarVM';
+import Modal from '../Modal';
 import './style.scss';
 
 export default function Dropdown(props) {
@@ -56,7 +58,10 @@ export default function Dropdown(props) {
 				<li
 					class="dropdown-add"
 					onclick="${() => {
-						console.log('추가기능');
+						controlModal(
+							true,
+							props.isCategory ? 'modal-category' : 'modal-payment'
+						);
 					}}"
 				>
 					<div>추가하기</div>

@@ -14,6 +14,5 @@ export const addRecordService = async (
 	amount: number,
 	IO: IO,
 	date: Date
-) => {
+) =>
 	await addRecord(user_id, category_id, payment_id, contents, amount, IO, date);
-};

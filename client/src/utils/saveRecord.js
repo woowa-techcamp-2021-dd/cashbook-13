@@ -27,13 +27,15 @@ export default async function saveRecord(
 				.replace('T', ' ')
 				.substr(0, 19),
 		};
-		await fetch('http://localhost:4000/api/record/user/records', {
+		return await fetch('http://localhost:4000/api/record/user/records', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(record),
-		});
+		})
+			.then((res) => res.json())
+			.then((data) => data);
 	}
 }
 

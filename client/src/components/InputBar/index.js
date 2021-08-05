@@ -4,6 +4,7 @@ import { inputBarState } from '../../vm/inputBarVM';
 import InputItem from '../InputItem';
 import ImageButton from '../ImageButton';
 import saveRecord from '../../utils/saveRecord';
+import { recordState } from '../../vm/recordVM';
 import { useState } from '../../core/vm';
 import './style.scss';
 import getInputBarContent from '../../utils/getInputBarContent';
@@ -14,6 +15,7 @@ export default function InputBar() {
 	const render = () => {
 		console.log('inputbar render');
 		const [state, setState] = useState(key);
+		const [state2, setState2] = useState(recordState);
 
 		const {
 			inputDate,
@@ -23,6 +25,8 @@ export default function InputBar() {
 			selectedIO,
 			inputAmount,
 		} = state;
+
+		const { records } = state2;
 
 		return html`<div class="inputbar">
 			${createElement(InputItem, {
@@ -58,16 +62,21 @@ export default function InputBar() {
 			${createElement(ImageButton, {
 				class: 'inputbar-save',
 				name: 'save-button-large-default',
-				eventHandler: () => {
+				eventHandler: async () => {
 					setState(getInputBarContent({})); // 지금은 두번 클릭해야함 saverecord에 값들이 셋 스테이트가 안된 값이라
-					saveRecord(
-						inputDate,
-						selectedCategoryID,
-						inputContent,
-						selectedPaymentID,
-						selectedIO,
-						inputAmount
-					);
+					setState2({
+						records: [
+							...records,
+							await saveRecord(
+								inputDate,
+								selectedCategoryID,
+								inputContent,
+								selectedPaymentID,
+								selectedIO,
+								inputAmount
+							),
+						],
+					});
 				},
 			})}
 		</div>`;
