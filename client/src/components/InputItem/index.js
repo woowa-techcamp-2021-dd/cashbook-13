@@ -7,11 +7,13 @@ import './style.scss';
 import Dropdown from '../Dropdown';
 import getValue from '../../utils/getValue';
 import setFocus from '../../utils/setFocus';
+import getInputBarContent from '../../utils/getInputBarContent';
 
 export default function Inputitem(props) {
 	const key = inputBarState;
 
 	const render = () => {
+		console.log('inputitem render');
 		const [state, setState] = useState(key);
 
 		const {
@@ -26,7 +28,6 @@ export default function Inputitem(props) {
 			basicCategory,
 			userCategory,
 			userPayment,
-			lastFocusInput,
 		} = state;
 
 		if (props.inputType === 'text') {
@@ -40,9 +41,6 @@ export default function Inputitem(props) {
 						value="${props.class === 'inputbar-date'
 							? inputDate
 							: inputContent}"
-						onKeyUp="${() => {
-							setState(getValue(props.class));
-						}}"
 					/>
 				</div>
 			</div>`;
@@ -53,8 +51,18 @@ export default function Inputitem(props) {
 					class="${props.class}"
 					onClick="${() => {
 						props.label === '분류'
-							? setState({ openCategory: !openCategory, lastFocusInput: '' })
-							: setState({ openPayment: !openPayment, lastFocusInput: '' });
+							? setState(
+									getInputBarContent({
+										openCategory: !openCategory,
+										lastFocusInput: '',
+									})
+							  )
+							: setState(
+									getInputBarContent({
+										openPayment: !openPayment,
+										lastFocusInput: '',
+									})
+							  );
 					}}"
 				>
 					<div class="inputbar-dropdown">
@@ -95,9 +103,6 @@ export default function Inputitem(props) {
 						type="text"
 						placeholder="입력하세요"
 						value="${inputAmount}"
-						onKeyup="${() => {
-							setState(getValue(props.class));
-						}}"
 					/>
 					<span>원</span>
 				</div>
@@ -106,14 +111,7 @@ export default function Inputitem(props) {
 			return html`<div></div>`;
 		}
 	};
-
-	const didMount = () => {
-		const [state, setState] = useState(key);
-
-		const { lastFocusInput } = state;
-		setFocus(lastFocusInput);
-	};
-	return { key, render, didMount };
+	return { key, render };
 }
 
 // TODO:
