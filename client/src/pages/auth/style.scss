@@ -1,0 +1,61 @@
+#page-auth {
+	margin: 0 auto;
+	margin-top: 10rem;
+	width: 40rem;
+
+	& > h1 {
+		font-size: 3rem;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+}
+
+.box-id-error {
+	height: var(--large-font-size);
+	font-size: var(--small-font-size);
+	text-align: center;
+	line-height: var(--large-font-size);
+	margin: 0.3rem 0 1.5rem 0;
+	color: rgb(227, 56, 22);
+}
+
+#auth-signin {
+	& > form {
+		display: flex;
+		flex-direction: column;
+	}
+
+	& > .github {
+		margin-top: 1rem;
+		background: #252525;
+		&:hover {
+			background: black;
+		}
+		&:focus {
+			background: #252525;
+		}
+	}
+
+	& > #footer {
+		margin: 0 auto;
+		margin-top: 3rem;
+		display: flex;
+		width: 50%;
+		justify-content: space-between;
+		font-size: var(--large-font-size);
+		& > div {
+			&:hover {
+				color: var(--primary-color);
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+#auth-signup {
+	& > form {
+		display: flex;
+		flex-direction: column;
+	}
+}

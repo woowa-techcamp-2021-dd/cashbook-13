@@ -139,3 +139,22 @@ option,
 	margin: 0;
 	outline: none;
 }
+
+button {
+	border: none;
+	padding: 0;
+	box-sizing: content-box;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+	outline: none;
+
+	&:hover,
+	&:active {
+		text-decoration: none;
+		color: #fff;
+		border: none;
+	}
+}

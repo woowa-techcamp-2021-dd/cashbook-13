@@ -1,17 +1,20 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Sequelize, DataType, Model } from 'sequelize-typescript';
 import { sequelize } from '.';
 
 export interface UserAttributes {
+	id?: number;
 	name: string;
-	githubID: string;
+	githubID?: string;
+	refresh_token?: string;
 	createdAt?: Date;
 	updatedAt?: Date;
 }
 
 export default class User extends Model<UserAttributes> {
 	public readonly id!: number;
-	public githubID!: string;
 	public name!: string;
+	public githubID?: string;
+	public refresh_token?: string;
 
 	public createdAt!: Date;
 	public updatedAt!: Date;
@@ -19,13 +22,17 @@ export default class User extends Model<UserAttributes> {
 
 User.init(
 	{
-		githubID: {
-			type: DataTypes.STRING(45),
+		name: {
+			type: DataType.STRING(45),
 			allowNull: false,
 		},
-		name: {
-			type: DataTypes.STRING(45),
-			allowNull: false,
+		githubID: {
+			type: DataType.STRING(45),
+			allowNull: true,
+		},
+		refresh_token: {
+			type: DataType.STRING(200),
+			allowNull: true,
 		},
 		createdAt: {
 			type: 'TIMESTAMP',

@@ -22,10 +22,10 @@
 	--white-color: #ffffff;
 	--off-white-color: #f6f6f6;
 
-	--large-font-size: 18px;
-	--medium-font-size: 16px;
-	--small-font-size: 14px;
-	--x-small-font-size: 12px;
+	--large-font-size: 1.8rem;
+	--medium-font-size: 1.6rem;
+	--small-font-size: 1.4rem;
+	--x-small-font-size: 1.2rem;
 }
 
 body {
@@ -80,7 +80,7 @@ body {
 	align-items: center;
 	color: var(--white-color);
 	background: var(--primary-color);
-	border-radius: 8px;
+	border-radius: 0.2rem;
 	cursor: pointer;
 
 	&.small {
@@ -117,7 +117,6 @@ body {
 	}
 	&:focus {
 		background: var(--primary-color);
-		border: 2px solid var(--primary-light-color);
 	}
 	&:disabled {
 		background: var(--primary-light-color);
