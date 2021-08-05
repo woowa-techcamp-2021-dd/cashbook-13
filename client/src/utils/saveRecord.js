@@ -1,17 +1,40 @@
-export default function saveRecord() {
-	const record = {
-		// user_id: 1,
-		// category_id: 1,
-		// payment_id: 1,
-		category: document.querySelector('.inputbar-category > div > div')
-			.innerText,
-		payment: document.querySelector('.inputbar-payment > div > div').innerText,
-		contents: document.querySelector('.inputbar-content').value,
-		amount: document.querySelector('.inputbar-amount').value,
-		// 'I/O':
-		date: document.querySelector('.inputbar-date').value,
-	};
-	console.log(record);
+export default async function saveRecord(
+	date,
+	category_id,
+	contents,
+	payment_id,
+	IO,
+	amount
+) {
+	if (
+		date !== '' &&
+		category_id !== '' &&
+		contents !== '' &&
+		payment_id !== '' &&
+		amount !== 0
+	) {
+		const record = {
+			user_id: 1,
+			category_id,
+			payment_id,
+			contents,
+			amount,
+			io: IO ? 'in' : 'out',
+			date: new Date(
+				`${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`
+			)
+				.toISOString()
+				.replace('T', ' ')
+				.substr(0, 19),
+		};
+		await fetch('http://localhost:4000/api/record/user/records', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(record),
+		});
+	}
 }
 
-// TODO: id들 가져오기, db create, 수정은 어떻게?
+// TODO: userid 어떻게 받지? 컨트롤러에서?, db create, 수정은 어떻게?

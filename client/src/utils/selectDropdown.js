@@ -1,7 +1,15 @@
-export default function selectDropdown(content, isCategory) {
+export default function selectDropdown(content, id, isCategory) {
 	if (isCategory) {
-		return { selectedCategory: content, lastFocusInput: '' };
+		return {
+			selectedCategory: content,
+			selectedCategoryID: id,
+			lastFocusInput: '',
+		};
 	} else {
-		return { selectedPayment: content, lastFocusInput: '' };
+		return {
+			selectedPayment: content,
+			selectedPaymentID: id,
+			lastFocusInput: '',
+		};
 	}
 }
