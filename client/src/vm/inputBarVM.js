@@ -2,8 +2,10 @@ import { initVMState } from '../core/vm';
 import {
 	inputDateModel,
 	selectedCategoryModel,
+	selectedCategoryIDModel,
 	inputContentModel,
 	selectedPaymentModel,
+	selectedPaymentIDModel,
 	selectedIOModel,
 	inputAmountModel,
 	openCategoryModel,
@@ -19,8 +21,10 @@ export const inputBarState = initVMState({
 	targets: [
 		inputDateModel,
 		selectedCategoryModel,
+		selectedCategoryIDModel,
 		inputContentModel,
 		selectedPaymentModel,
+		selectedPaymentIDModel,
 		selectedIOModel,
 		inputAmountModel,
 		openCategoryModel,

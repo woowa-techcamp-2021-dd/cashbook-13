@@ -10,6 +10,11 @@ export const selectedCategoryModel = initStoreState({
 	defaultValue: '선택하세요',
 });
 
+export const selectedCategoryIDModel = initStoreState({
+	key: 'selectedCategoryID',
+	defaultValue: 0,
+});
+
 export const inputContentModel = initStoreState({
 	key: 'inputContent',
 	defaultValue: '',
@@ -18,6 +23,11 @@ export const inputContentModel = initStoreState({
 export const selectedPaymentModel = initStoreState({
 	key: 'selectedPayment',
 	defaultValue: '선택하세요',
+});
+
+export const selectedPaymentIDModel = initStoreState({
+	key: 'selectedPaymentID',
+	defaultValue: 0,
 });
 
 export const selectedIOModel = initStoreState({
@@ -42,17 +52,23 @@ export const openPaymentModel = initStoreState({
 
 export const basicCategoryModel = initStoreState({
 	key: 'basicCategory',
-	defaultValue: ['생활', '바른생활'],
+	defaultValue: [],
+	initialize: async () =>
+		await fetch('http://localhost:4000/api/category/categories/default')
+			.then((res) => res.json())
+			.then((data) => {
+				return data.categories;
+			}),
 });
 
 export const userCategoryModel = initStoreState({
 	key: 'userCategory',
-	defaultValue: [4, 5, 6],
+	defaultValue: [],
 });
 
 export const userPaymentModel = initStoreState({
 	key: 'userPayment',
-	defaultValue: ['현금', '현대카드'],
+	defaultValue: [{ name: '현금' }],
 });
 
 export const lastFocusInputModel = initStoreState({
