@@ -1,11 +1,9 @@
-import html from '../core/jsx';
-import { appState } from '../sample/counterVM';
+import html from '../../core/jsx';
+import './style.scss';
 
 export default function RecordListHeader(props) {
-	const key = appState;
-
 	const render = () => {
-		return html`<div class="record-list-header">
+		return html` <div class="record-list-header">
 			<div class="record-date">
 				<div class="record-day">${props.month}월 ${props.day}일</div>
 				<div class="record-dayofweek">${props.dayofweek}</div>
@@ -17,7 +15,5 @@ export default function RecordListHeader(props) {
 		</div>`;
 	};
 
-	return { key, render };
+	return { render };
 }
-
-// TODO: 데이터 받아오기

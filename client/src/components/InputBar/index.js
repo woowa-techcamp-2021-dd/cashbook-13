@@ -1,13 +1,29 @@
-import html from '../core/jsx';
-import { createElement } from '../core/createElement';
-import { appState } from '../sample/counterVM';
-import InputItem from './InputItem';
-import ImageButton from './ImageButton';
+import html from '../../core/jsx';
+import { createElement } from '../../core/createElement';
+import { inputBarState } from '../../vm/inputBarVM';
+import InputItem from '../InputItem';
+import ImageButton from '../ImageButton';
+import saveRecord from '../../utils/saveRecord';
+import { useState } from '../../core/vm';
+import './style.scss';
+import getInputBarContent from '../../utils/getInputBarContent';
 
 export default function InputBar() {
-	const key = appState;
+	const key = inputBarState;
 
 	const render = () => {
+		console.log('inputbar render');
+		const [state, setState] = useState(key);
+
+		const {
+			inputDate,
+			selectedCategoryID,
+			inputContent,
+			selectedPaymentID,
+			selectedIO,
+			inputAmount,
+		} = state;
+
 		return html`<div class="inputbar">
 			${createElement(InputItem, {
 				inputType: 'text',
@@ -38,11 +54,21 @@ export default function InputBar() {
 				itemType: 'inputbar-item-last',
 				label: '금액',
 				class: 'inputbar-amount',
-				imgClass: 'inputbar-io',
 			})}
 			${createElement(ImageButton, {
 				class: 'inputbar-save',
 				name: 'save-button-large-default',
+				eventHandler: () => {
+					setState(getInputBarContent({})); // 지금은 두번 클릭해야함 saverecord에 값들이 셋 스테이트가 안된 값이라
+					saveRecord(
+						inputDate,
+						selectedCategoryID,
+						inputContent,
+						selectedPaymentID,
+						selectedIO,
+						inputAmount
+					);
+				},
 			})}
 		</div>`;
 	};

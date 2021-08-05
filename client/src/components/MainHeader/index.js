@@ -1,26 +1,43 @@
-import html from '../core/jsx';
-import { createElement } from '../core/createElement';
-import { appState } from '../sample/counterVM';
-import ImageButton from './ImageButton';
+import html from '../../core/jsx';
+import { useState } from '../../core/vm';
+import { createElement } from '../../core/createElement';
+import { recordState } from '../../vm/recordVM';
+import ImageButton from '../ImageButton';
+import calculateMonth from '../../utils/calculateMonth';
+import './style.scss';
+import getRecord from '../../utils/getRecord';
 
 export default function MainHeader() {
-	const key = appState;
+	const key = recordState;
 
 	const render = () => {
-		return html`<header>
+		const [state, setState] = useState(key);
+		const { date } = state;
+
+		return html`<header class="header">
 			<div class="header-title">우아한 가계부</div>
 			<span class="header-row">
 				${createElement(ImageButton, {
 					class: 'arrow-left',
 					name: 'arrow-left',
+					eventHandler: async () => {
+						setState(
+							await getRecord(calculateMonth(date.year, date.month, false))
+						);
+					},
 				})}
 				<span class="header-date">
-					<span class="header-month">7월</span>
-					<span class="header-year">2021</span>
+					<span class="header-month">${date.month}월</span>
+					<span class="header-year">${date.year}</span>
 				</span>
 				${createElement(ImageButton, {
 					class: 'arrow_right',
 					name: 'arrow-right',
+					eventHandler: async () => {
+						setState(
+							await getRecord(calculateMonth(date.year, date.month, true))
+						);
+					},
 				})}
 			</span>
 			<span class="header-tab">
