@@ -7,7 +7,6 @@ export const getRecord = async (req: Request, res: Response) => {
 	console.log('req.passport.user : ', req.user);
 
 	const date = String(req.query.date);
-	// 여기서 id도 넣어야함
 	const record = await getRecordService(1, date);
 	res.status(200).json({ record });
 };
@@ -15,7 +14,7 @@ export const getRecord = async (req: Request, res: Response) => {
 export const addRecord = async (req: Request, res: Response) => {
 	const { user_id, category_id, payment_id, contents, amount, io, date } =
 		req.body;
-	await addRecordService(
+	const record = await addRecordService(
 		user_id,
 		category_id,
 		payment_id,
@@ -24,4 +23,16 @@ export const addRecord = async (req: Request, res: Response) => {
 		io,
 		date
 	);
+	res.status(200).json({
+		category_id: record.category_id,
+		payment_id: record.payment_id,
+		contents: record.contents,
+		amount: record.amount,
+		io: record['I/O'],
+		date: record.date,
+		createAt: record.createdAt,
+		updateAt: record.updatedAt,
+		user_id: record.user_id,
+		id: record.id,
+	});
 };

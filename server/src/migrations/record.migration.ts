@@ -53,8 +53,7 @@ export const addRecord = async (
 	amount: number,
 	io: IO,
 	date: Date
-) => {
-	console.log(date);
+) =>
 	await Record.create({
 		user_id,
 		'category_id': 1,
@@ -64,4 +63,3 @@ export const addRecord = async (
 		'I/O': io,
 		date,
 	});
-};
