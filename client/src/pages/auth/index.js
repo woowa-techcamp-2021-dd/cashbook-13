@@ -5,7 +5,7 @@ import { useState, useSetState } from '@/core/vm';
 
 import { authVMState } from '@/vm/authVM';
 
-import { requestSignup, requestSignin, requestSignout } from '@/utils/request';
+import { requestSignup, requestSignin } from '@/utils/request';
 import errorGenerator from '@/utils/errorGenerator';
 import { MESSAGE, REGEX } from '@/config/constant';
 
@@ -107,7 +107,10 @@ const onSubmitForm = (formID, inputID) => async (e) => {
 		formID === 'signup'
 			? await requestSignup(inputName)
 			: await requestSignin(inputName);
-		setState({ isSignin: true });
+
+		formID === 'signup'
+			? setState({ auth: 'signin' })
+			: setState({ isSignin: true });
 	} catch (err) {
 		const { message } = err.data;
 		setState({

@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	mode: 'production',
@@ -54,6 +55,10 @@ module.exports = {
 				test: /\.svg$/,
 				loader: 'file-loader',
 			},
+			{
+				test: /\.(png|svg|jpg|jpeg|gif)$/i,
+				type: 'asset/resource',
+			},
 		],
 	},
 	plugins: [
@@ -62,6 +67,9 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/public/index.html',
+		}),
+		new CopyWebpackPlugin({
+			patterns: [{ from: 'src/public/', to: './src/public' }],
 		}),
 		new webpack.EnvironmentPlugin([]),
 	],
